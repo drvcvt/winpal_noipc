@@ -1,0 +1,20 @@
+Erweiterter ApplicationLauncher: Statt fester Befehle für Notepad und Taschenrechner könnte man einen generischen launch Befehl einführen. 
+Der Benutzer könnte dann den Namen oder Pfad einer beliebigen Anwendung angeben (launch spotify). 
+Das Programm könnte dann in bekannten Verzeichnissen (wie dem Startmenü oder Program Files) suchen.
+
+Mächtiger ClipboardManager: Anstatt nur das Clipboard zu leeren,
+wäre ein Clipboard-Manager, der eine Historie der letzten Kopiervorgänge anzeigt und das Wiedereinfügen ermöglicht, 
+ein enormes Upgrade.
+
+Erweiterte ProcessTools: Der "Process Mode" ist eine super Idee. 
+Man könnte ihn erweitern, um direkt im Interface CPU- und Speichernutzung für jeden Prozess anzuzeigen, 
+ähnlich wie im Task-Manager.
+
+Spezifischere SystemSettings: Statt nur die allgemeinen Einstellungen zu öffnen, 
+könnten Befehle für spezifische Einstellungsseiten hinzugefügt werden (z. B. settings display, settings bluetooth, settings network).
+
+Neue Feature-Ideen
+Hier sind einige komplett neue Funktionen, die den Nutzen des Tools stark erweitern würden:
+Integrierter Rechner: Anstatt die Rechner-App zu starten, könnte man mathematische Ausdrücke direkt in der Eingabezeile auswerten (z. B. _2_ * (10+5)).
+Web-Suche: Ein einfacher Befehl, um eine Websuche im Standardbrowser zu starten (z. B. g wie ist das wetter? für eine Google-Suche).
+Einheitenumrechner: Ein schneller Konverter für Einheiten (convert 10 usd to eur, convert 5ft to cm).
