@@ -855,37 +855,50 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             break;
 
         case WM_HOTKEY:
-            if (wParam == HotkeyManager::PALETTE_HOTKEY_ID) {
+        {
+            int hotkeyId = static_cast<int>(wParam);
+
+            // Handle the main palette hotkey
+            if (hotkeyId == HotkeyManager::PALETTE_HOTKEY_ID) {
                 g_isWindowVisible = !g_isWindowVisible;
                 
                 if (g_isWindowVisible) {
-                    // Reset cursor state (animation removed)
+                    // Reset cursor state
                     g_cursorVisible = true;
                     g_lastCursorBlink = std::chrono::steady_clock::now();
                     
-                    // Position window like PowerToys Run - centered search bar
+                    // Position window like PowerToys Run
                     int screenWidth = GetSystemMetrics(SM_CXSCREEN);
-                    int windowWidth = 750;  // Standard width for a command palette
-                    int windowHeight = 65; // Height for input bar + padding
+                    int windowWidth = 750;
+                    int windowHeight = 65;
 
                     int x = (screenWidth - windowWidth) / 2;
-                    int y = GetSystemMetrics(SM_CYSCREEN) / 4; // Position in upper third
+                    int y = GetSystemMetrics(SM_CYSCREEN) / 4;
                     
                     SetWindowPos(g_hwnd, HWND_TOPMOST, x, y, windowWidth, windowHeight, SWP_SHOWWINDOW);
-                    // Set full opacity immediately to prevent flickering - No longer needed as we don't use layered windows for this.
-                    // SetLayeredWindowAttributes(g_hwnd, 0, 255, LWA_ALPHA);
-                    SetForegroundWindow(g_hwnd); // Set focus to the command palette
+                    SetForegroundWindow(g_hwnd);
                     SetActiveWindow(g_hwnd);
                     SetFocus(g_hwnd);
                     
                     g_inputBuffer.clear();
-                    UpdateFoundCommands(L""); // Dies wird automatisch UpdateWindowSize aufrufen
+                    UpdateFoundCommands(L"");
                     InvalidateRect(g_hwnd, NULL, FALSE);
                 } else {
                     ShowWindow(g_hwnd, SW_HIDE);
                 }
             }
+            // Handle custom command hotkeys
+            else {
+                std::wstring commandToExecute = g_hotkeyManager.FindCommandForHotkey(hotkeyId);
+                if (!commandToExecute.empty()) {
+                    // Use a simple natural command execution for now.
+                    // This assumes commands like "notepad", "calculator" can be found.
+                    std::wstring naturalCommand = L"launch " + commandToExecute;
+                    g_commandManager.ExecuteNaturalCommand(naturalCommand);
+                }
+            }
             break;
+        }
         case WM_ACTIVATE:
             // Redraw to show/hide focus glow
             InvalidateRect(hwnd, NULL, FALSE);

@@ -14,6 +14,7 @@ set(SOURCES
     main.cpp
     Core/GuiManager.cpp
     Core/HotkeyManager.cpp
+    Core/AsyncSearchManager.cpp
     Commands/CommandManager.cpp
     Commands/ExecutionHistory.cpp
     Plugins/SystemSettings/SettingsCommand.cpp
@@ -41,6 +42,7 @@ set(SOURCES
 set(HEADERS
     Core/GuiManager.h
     Core/HotkeyManager.h
+    Core/AsyncSearchManager.h
     Commands/CommandManager.h
     Commands/ExecutionHistory.h
     Commands/ICommand.h

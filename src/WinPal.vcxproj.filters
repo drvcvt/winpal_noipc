@@ -1,162 +1,162 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\main.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Core\GuiManager.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Core\GuiManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Core\HotkeyManager.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Core\HotkeyManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Commands\CommandManager.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Commands\CommandManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Commands\ExecutionHistory.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Commands\ExecutionHistory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\SystemSettings\SettingsCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\SystemSettings\SettingsCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\FileTools\OpenFileExplorerCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\FileTools\OpenFileExplorerCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\FileTools\OpenDownloadsCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\FileTools\OpenDownloadsCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\FileTools\OpenDesktopCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\FileTools\OpenDesktopCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ApplicationLauncher\LaunchCalculatorCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ApplicationLauncher\LaunchCalculatorCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ApplicationLauncher\LaunchNotepadCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ApplicationLauncher\LaunchNotepadCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ApplicationLauncher\LaunchTaskManagerCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ApplicationLauncher\LaunchTaskManagerCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ApplicationLauncher\GenericLaunchCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ApplicationLauncher\GenericLaunchCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ApplicationLauncher\ApplicationFinder.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ApplicationLauncher\ApplicationFinder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\SystemInfo\ShowSystemInfoCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\SystemInfo\ShowSystemInfoCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\SystemInfo\ShowDiskUsageCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\SystemInfo\ShowDiskUsageCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\NetworkTools\ShowNetworkInfoCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\NetworkTools\ShowNetworkInfoCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\NetworkTools\PingCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\NetworkTools\PingCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ClipboardManager\ClearClipboardCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ClipboardManager\ClearClipboardCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\DeveloperTools\OpenGitBashCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\DeveloperTools\OpenGitBashCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\DeveloperTools\OpenPowerShellCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\DeveloperTools\OpenPowerShellCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ProcessTools\EnterProcessModeCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ProcessTools\EnterProcessModeCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ProcessTools\TerminateProcessCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ProcessTools\TerminateProcessCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ProcessTools\OpenProcessPathCommand.cpp">
+    <ClCompile Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ProcessTools\OpenProcessPathCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Core\GuiManager.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Core\GuiManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Core\HotkeyManager.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Core\HotkeyManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Commands\CommandManager.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Commands\CommandManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Commands\ExecutionHistory.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Commands\ExecutionHistory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Commands\ICommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Commands\ICommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\SystemSettings\SettingsCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\SystemSettings\SettingsCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\FileTools\OpenFileExplorerCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\FileTools\OpenFileExplorerCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\FileTools\OpenDownloadsCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\FileTools\OpenDownloadsCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\FileTools\OpenDesktopCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\FileTools\OpenDesktopCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ApplicationLauncher\LaunchCalculatorCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ApplicationLauncher\LaunchCalculatorCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ApplicationLauncher\LaunchNotepadCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ApplicationLauncher\LaunchNotepadCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ApplicationLauncher\LaunchTaskManagerCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ApplicationLauncher\LaunchTaskManagerCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ApplicationLauncher\GenericLaunchCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ApplicationLauncher\GenericLaunchCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ApplicationLauncher\ApplicationFinder.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ApplicationLauncher\ApplicationFinder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\SystemInfo\ShowSystemInfoCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\SystemInfo\ShowSystemInfoCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\SystemInfo\ShowDiskUsageCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\SystemInfo\ShowDiskUsageCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\NetworkTools\ShowNetworkInfoCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\NetworkTools\ShowNetworkInfoCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\NetworkTools\PingCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\NetworkTools\PingCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ClipboardManager\ClearClipboardCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ClipboardManager\ClearClipboardCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\DeveloperTools\OpenGitBashCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\DeveloperTools\OpenGitBashCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\DeveloperTools\OpenPowerShellCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\DeveloperTools\OpenPowerShellCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ProcessTools\EnterProcessModeCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ProcessTools\EnterProcessModeCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ProcessTools\TerminateProcessCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ProcessTools\TerminateProcessCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\Plugins\ProcessTools\OpenProcessPathCommand.h">
+    <ClInclude Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\Plugins\ProcessTools\OpenProcessPathCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\qkeu50\Documents\cpp\winpal_winapi\src\CMakeLists.txt" />
+    <CustomBuild Include="C:\Users\matti\Documents\wintility\winpal_noipc\src\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{9608312C-B3B2-3F60-981C-25E78A9F9AD3}</UniqueIdentifier>
+      <UniqueIdentifier>{2801B38B-9CF1-3645-A4CE-129F295758C1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{4FFA5BFE-42F9-384D-BA54-FE7105DDBD3E}</UniqueIdentifier>
+      <UniqueIdentifier>{187C4F74-4040-347F-9FE0-358355121DBB}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

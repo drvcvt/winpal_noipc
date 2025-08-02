@@ -533,33 +533,16 @@ bool CommandManager::ExecuteLaunchCommand(const std::wstring& appName) {
         return false;
     }
     
-    // Verwende GenericLaunchCommand für die Suche
-    auto genericLauncher = std::make_unique<GenericLaunchCommand>();
-    genericLauncher->SetSearchTerm(appName);
-    
-    auto applications = genericLauncher->GetMatchingApplications();
-    if (!applications.empty()) {
-        // Starte die beste Übereinstimmung
-        genericLauncher->LaunchApplication(applications[0]);
-        
-        // Füge zum Verlauf hinzu
-        m_executionHistory.AddExecution(
-            L"Launch " + applications[0].name,
-            applications[0].description,
-            CommandCategory::APPLICATION_LAUNCHER
-        );
-        
-        return true;
-    }
-    
-    // Fallback: Versuche direkten Launch
+    // Führe den Befehl direkt aus. Dies ist der robusteste Weg für Hotkeys.
+    // Wir umgehen hier bewusst die komplexere anwendungsinterne Suche,
+    // die für die interaktive UI gedacht ist.
     HINSTANCE result = ShellExecuteW(NULL, L"open", appName.c_str(), NULL, NULL, SW_SHOWNORMAL);
     bool success = (reinterpret_cast<INT_PTR>(result) > 32);
     
     if (success) {
         m_executionHistory.AddExecution(
             L"Launch " + appName,
-            L"Direct application launch",
+            L"Direct application launch via hotkey",
             CommandCategory::APPLICATION_LAUNCHER
         );
     }

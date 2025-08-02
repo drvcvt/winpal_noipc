@@ -1,14 +1,36 @@
 #pragma once
 
 #include <windows.h>
+#include <vector>
+#include <string>
+
+// Struktur zur Definition eines einzelnen Hotkeys und seiner Aktion
+struct Hotkey {
+    int id;
+    UINT modifiers;
+    UINT vkCode;
+    std::wstring commandName; // Name des Befehls, der ausgeführt werden soll
+};
 
 class HotkeyManager {
 public:
+    // Statische ID für den globalen Palette-Hotkey beibehalten
     static const int PALETTE_HOTKEY_ID = 1;
 
-    // Registers the global hotkey Alt+Ctrl+P
+    HotkeyManager();
+
+    // Lädt (vorerst hartcodierte) Hotkey-Konfigurationen und registriert sie
     bool RegisterHotkeys(HWND hwnd);
 
-    // Unregisters the hotkey
+    // Deregistriert alle Hotkeys
     void UnregisterHotkeys(HWND hwnd);
+
+    // Findet den Befehlsnamen für eine ausgelöste Hotkey-ID
+    std::wstring FindCommandForHotkey(int hotkeyId) const;
+
+private:
+    std::vector<Hotkey> m_hotkeys;
+
+    // Lädt die Konfiguration. Später kann dies aus einer Datei erfolgen.
+    void LoadHotkeyConfiguration(); 
 };
