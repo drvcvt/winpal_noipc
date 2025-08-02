@@ -43,7 +43,6 @@ ULONG_PTR g_gdiplusToken;
 
 // Einfache, begrenzte Suche für maximale Performance
 const int MAX_SEARCH_RESULTS = 4;   // Nur 4 Ergebnisse für beste Performance
-const int MAX_COMMANDS_TO_SEARCH = 50; // Durchsuche nur erste 50 Commands
 
 // Autocomplete-Feature Variablen
 std::vector<std::wstring> g_autocompleteSuggestions;
@@ -310,68 +309,11 @@ void UpdateFoundCommands(const std::wstring& searchTerm) {
         return;
     }
     
-    // SOFORTIGE, BEGRENZTE SUCHE für Live-Performance
+    // Suche über den CommandManager und limitiere die Ergebnisse
     g_foundCommands.clear();
-    std::wstring lowerSearchTerm = searchTerm;
-    std::transform(lowerSearchTerm.begin(), lowerSearchTerm.end(), lowerSearchTerm.begin(), ::towlower);
-    
-    // Hol alle Commands aber durchsuche nur die ersten MAX_COMMANDS_TO_SEARCH
-    auto allCommands = g_commandManager.FindCommands(L""); // Hol alle Commands
-    
-    int commandsSearched = 0;
-    int foundCount = 0;
-    
-    // Erste Durchsuchung: Exakte Treffer und "Beginnt mit"
-    for (auto* cmd : allCommands) {
-        if (commandsSearched >= MAX_COMMANDS_TO_SEARCH || foundCount >= MAX_SEARCH_RESULTS) {
-            break;
-        }
-        
-        std::wstring cmdName = cmd->GetName();
-        std::wstring lowerCmdName = cmdName;
-        std::transform(lowerCmdName.begin(), lowerCmdName.end(), lowerCmdName.begin(), ::towlower);
-        
-        // Exakte Treffer oder "beginnt mit" - diese sind am relevantesten
-        if (lowerCmdName == lowerSearchTerm || lowerCmdName.find(lowerSearchTerm) == 0) {
-            g_foundCommands.push_back(cmd);
-            foundCount++;
-        }
-        commandsSearched++;
-    }
-    
-    // Zweite Durchsuchung: "Enthält" - nur wenn noch Platz
-    if (foundCount < MAX_SEARCH_RESULTS) {
-        commandsSearched = 0;
-        for (auto* cmd : allCommands) {
-            if (commandsSearched >= MAX_COMMANDS_TO_SEARCH || foundCount >= MAX_SEARCH_RESULTS) {
-                break;
-            }
-            
-            std::wstring cmdName = cmd->GetName();
-            std::wstring lowerCmdName = cmdName;
-            std::transform(lowerCmdName.begin(), lowerCmdName.end(), lowerCmdName.begin(), ::towlower);
-            
-            // "Enthält" - aber nicht schon gefunden
-            if (lowerCmdName.find(lowerSearchTerm) != std::wstring::npos && 
-                lowerCmdName != lowerSearchTerm && 
-                lowerCmdName.find(lowerSearchTerm) != 0) {
-                
-                // Prüfe ob nicht schon in der Liste
-                bool alreadyFound = false;
-                for (auto* existing : g_foundCommands) {
-                    if (existing == cmd) {
-                        alreadyFound = true;
-                        break;
-                    }
-                }
-                
-                if (!alreadyFound) {
-                    g_foundCommands.push_back(cmd);
-                    foundCount++;
-                }
-            }
-            commandsSearched++;
-        }
+    auto results = g_commandManager.FindCommands(searchTerm);
+    for (size_t i = 0; i < results.size() && i < MAX_SEARCH_RESULTS; ++i) {
+        g_foundCommands.push_back(results[i]);
     }
     
     g_selectedCommand = 0;
