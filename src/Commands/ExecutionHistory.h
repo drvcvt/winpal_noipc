@@ -2,9 +2,9 @@
 
 #include "ICommand.h"
 #include <vector>
-#include <memory>
 #include <string>
 #include <chrono>
+#include <filesystem>
 
 struct HistoryEntry {
     std::wstring commandName;
@@ -23,14 +23,14 @@ struct HistoryEntry {
 
 class ExecutionHistory {
 public:
-    static const size_t MAX_HISTORY_SIZE = 4;
+    ExecutionHistory();
 
     // Fügt einen Command zum Verlauf hinzu
     void AddExecution(const ICommand* command);
-    
+
     // Fügt eine direkte Ausführung zum Verlauf hinzu (für Shebang-Commands)
     void AddExecution(const std::wstring& name, const std::wstring& description, CommandCategory category);
-    
+
     // Fügt eine PowerShell-Ausführung zum Verlauf hinzu
     void AddPowerShellExecution(const std::wstring& command);
 
@@ -45,4 +45,11 @@ public:
 
 private:
     std::vector<HistoryEntry> m_history;
-}; 
+    size_t m_maxHistorySize;
+
+    void SaveHistory() const;
+    void LoadHistory();
+    void LoadSettings();
+    std::filesystem::path GetHistoryFilePath() const;
+    std::filesystem::path GetSettingsFilePath() const;
+};
