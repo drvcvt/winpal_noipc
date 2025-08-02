@@ -19,7 +19,7 @@ public:
 
     HotkeyManager();
 
-    // Lädt (vorerst hartcodierte) Hotkey-Konfigurationen und registriert sie
+    // Registriert alle geladenen Hotkeys
     bool RegisterHotkeys(HWND hwnd);
 
     // Deregistriert alle Hotkeys
@@ -31,6 +31,6 @@ public:
 private:
     std::vector<Hotkey> m_hotkeys;
 
-    // Lädt die Konfiguration. Später kann dies aus einer Datei erfolgen.
-    void LoadHotkeyConfiguration(); 
+    // Liest Hotkeys aus einer Konfigurationsdatei und befüllt m_hotkeys
+    void LoadHotkeyConfiguration();
 };
