@@ -1,5 +1,8 @@
 #include "HotkeyManager.h"
 #include <string>
+#include <fstream>
+#include <sstream>
+#include <regex>
 
 HotkeyManager::HotkeyManager() {
     LoadHotkeyConfiguration();
@@ -7,14 +10,56 @@ HotkeyManager::HotkeyManager() {
 
 void HotkeyManager::LoadHotkeyConfiguration() {
     m_hotkeys.clear();
-    
-    // Neuer globaler Hotkey zum Öffnen der Palette: Alt + Space
-    m_hotkeys.push_back({PALETTE_HOTKEY_ID, MOD_ALT, VK_SPACE, L""});
 
-    // Benutzerdefinierte Hotkeys
-    m_hotkeys.push_back({2, MOD_ALT, 'C', L"calculator"});
-    m_hotkeys.push_back({3, MOD_ALT, 'N', L"notepad"});
-    m_hotkeys.push_back({4, MOD_ALT, 'T', L"task manager"});
+    // Attempt to load hotkey definitions from external JSON file.
+    // The file is expected to contain an array of objects with the
+    // fields: id, modifiers, vkCode and commandName.
+    std::ifstream file("hotkeys.json");
+    if (file) {
+        std::string content((std::istreambuf_iterator<char>(file)),
+                            std::istreambuf_iterator<char>());
+
+        std::regex objectRegex("\\{[^}]*\\}");
+        auto begin = std::sregex_iterator(content.begin(), content.end(), objectRegex);
+        auto end = std::sregex_iterator();
+
+        for (auto it = begin; it != end; ++it) {
+            std::string obj = (*it).str();
+            std::smatch match;
+
+            Hotkey hk{};
+
+            if (!std::regex_search(obj, match, std::regex("\"id\"\\s*:\\s*(\\d+)")))
+                continue;
+            hk.id = std::stoi(match[1]);
+
+            if (!std::regex_search(obj, match, std::regex("\"modifiers\"\\s*:\\s*(\\d+)")))
+                continue;
+            hk.modifiers = static_cast<UINT>(std::stoi(match[1]));
+
+            if (!std::regex_search(obj, match, std::regex("\"vkCode\"\\s*:\\s*(\\d+)")))
+                continue;
+            hk.vkCode = static_cast<UINT>(std::stoi(match[1]));
+
+            if (!std::regex_search(obj, match, std::regex("\"commandName\"\\s*:\\s*\"([^\"]*)\"")))
+                continue;
+            std::string cmd = match[1];
+            hk.commandName = std::wstring(cmd.begin(), cmd.end());
+
+            m_hotkeys.push_back(hk);
+        }
+    }
+
+    // Fallback to default hotkeys if configuration is missing or invalid.
+    if (m_hotkeys.empty()) {
+        // Global palette hotkey: Alt + Space
+        m_hotkeys.push_back({PALETTE_HOTKEY_ID, MOD_ALT, VK_SPACE, L""});
+
+        // Additional user hotkeys
+        m_hotkeys.push_back({2, MOD_ALT, 'C', L"calculator"});
+        m_hotkeys.push_back({3, MOD_ALT, 'N', L"notepad"});
+        m_hotkeys.push_back({4, MOD_ALT, 'T', L"task manager"});
+    }
 }
 
 bool HotkeyManager::RegisterHotkeys(HWND hwnd) {
