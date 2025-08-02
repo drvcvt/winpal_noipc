@@ -42,7 +42,7 @@ HFONT g_hIconFont = NULL; // Font for icons
 ULONG_PTR g_gdiplusToken;
 
 // Einfache, begrenzte Suche für maximale Performance
-const int MAX_SEARCH_RESULTS = 4;   // Nur 4 Ergebnisse für beste Performance
+const int MAX_SEARCH_RESULTS = 15;  // Allow up to 15 results for better coverage
 
 // Autocomplete-Feature Variablen
 std::vector<std::wstring> g_autocompleteSuggestions;
@@ -141,15 +141,16 @@ void UpdateWindowSize() {
         int suggestionCount = min((int)g_autocompleteSuggestions.size(), 8);
         windowHeight = 65 + (35 + 1) * suggestionCount + 25; // +25 for hint text
     } else if (!g_foundCommands.empty()) {
-        // Height for input bar + search results (max 4 für beste Performance)
+        // Height for input bar + search results (up to MAX_SEARCH_RESULTS)
         int displayedResults = min((int)g_foundCommands.size(), MAX_SEARCH_RESULTS);
         windowHeight = 65 + (55 + 2) * displayedResults;
     } else if (g_inputBuffer.empty()) {
         // Zeige History wenn keine Eingabe vorhanden
         const ExecutionHistory& history = g_commandManager.GetExecutionHistory();
         if (!history.IsEmpty()) {
-            // Height for input bar + history entries (max 4)
-            windowHeight = 65 + (55 + 2) * min((int)history.GetHistory().size(), 4);
+            // Height for input bar + history entries (up to MAX_SEARCH_RESULTS)
+            int historyCount = min((int)history.GetHistory().size(), MAX_SEARCH_RESULTS);
+            windowHeight = 65 + (55 + 2) * historyCount;
         }
     }
     
@@ -485,7 +486,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                 int startY = rcInput.bottom + 10; // Start below the input area
                 int itemHeight = 55; 
                 int itemSpacing = 2;
-                int maxResults = MAX_SEARCH_RESULTS; // Show up to 4 results for best performance
+                int maxResults = MAX_SEARCH_RESULTS; // Show up to the configured maximum results
 
                 for (int i = 0; i < g_foundCommands.size() && i < maxResults; ++i) {
                     ICommand* cmd = g_foundCommands[i];
@@ -540,8 +541,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                 int itemHeight = 55; 
                 int itemSpacing = 2;
                 const auto& historyEntries = history.GetHistory();
+                int maxHistory = min((int)historyEntries.size(), MAX_SEARCH_RESULTS);
 
-                for (size_t i = 0; i < historyEntries.size(); ++i) {
+                for (int i = 0; i < maxHistory; ++i) {
                     const HistoryEntry& entry = historyEntries[i];
                     RECT rcItem = { 12, startY, rcClient.right - 12, startY + itemHeight };
 
