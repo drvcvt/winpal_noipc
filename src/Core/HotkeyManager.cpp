@@ -8,8 +8,8 @@ HotkeyManager::HotkeyManager() {
 void HotkeyManager::LoadHotkeyConfiguration() {
     m_hotkeys.clear();
     
-    // Neuer globaler Hotkey zum Öffnen der Palette: Alt + Ctrl + Space
-    m_hotkeys.push_back({PALETTE_HOTKEY_ID, MOD_ALT | MOD_CONTROL, VK_SPACE, L""});
+    // Neuer globaler Hotkey zum Öffnen der Palette: Alt + Space
+    m_hotkeys.push_back({PALETTE_HOTKEY_ID, MOD_ALT, VK_SPACE, L""});
 
     // Benutzerdefinierte Hotkeys
     m_hotkeys.push_back({2, MOD_ALT, 'C', L"calculator"});
