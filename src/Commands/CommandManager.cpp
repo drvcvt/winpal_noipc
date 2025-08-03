@@ -18,6 +18,8 @@
 #include "../Plugins/ClipboardManager/ClearClipboardCommand.h"
 #include "../Plugins/DeveloperTools/OpenGitBashCommand.h"
 #include "../Plugins/DeveloperTools/OpenPowerShellCommand.h"
+#include "../Plugins/ProcessTools/EnterProcessModeCommand.h"
+#include "../Plugins/ProcessTools/OpenProcessPathCommand.h"
 #include "../Plugins/ProcessTools/TerminateProcessCommand.h"
 #include <vector>
 #include <utility>
@@ -72,9 +74,17 @@ void CommandManager::RegisterDeveloperToolsCommands()
     RegisterCommand(std::make_unique<OpenPowerShellCommand>());
 }
 
+void CommandManager::RegisterProcessToolsCommands()
+{
+    RegisterCommand(std::make_unique<EnterProcessModeCommand>());
+    RegisterCommand(std::make_unique<OpenProcessPathCommand>());
+    RegisterCommand(std::make_unique<TerminateProcessCommand>());
+}
+
 void CommandManager::RegisterAllPlugins()
 {
     RegisterSettingsCommands();
+    RegisterProcessToolsCommands();
     RegisterFileToolsCommands();
     RegisterApplicationLauncherCommands();
     RegisterSystemInfoCommands();

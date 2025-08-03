@@ -17,9 +17,6 @@
 #include "Commands/CommandManager.h"
 #include "Commands/ICommand.h"
 #include "Commands/ExecutionHistory.h"
-#include "Plugins/ProcessTools/EnterProcessModeCommand.h"
-#include "Plugins/ProcessTools/TerminateProcessCommand.h"
-#include "Plugins/ProcessTools/OpenProcessPathCommand.h"
 #include "Plugins/ApplicationLauncher/GenericLaunchCommand.h"
 
 #pragma comment(lib, "gdiplus.lib")
@@ -866,17 +863,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     return 0;
 }
 
-void RegisterCommands(CommandManager& commandManager)
-{
-    // Register all plugins using the new system
-    commandManager.RegisterAllPlugins();
-    
-    // Register legacy ProcessTools commands (these will be moved to the new system in future)
-    commandManager.RegisterCommand(std::make_unique<EnterProcessModeCommand>());
-    commandManager.RegisterCommand(std::make_unique<OpenProcessPathCommand>());
-    commandManager.RegisterCommand(std::make_unique<TerminateProcessCommand>());
-}
-
 // Entry point for Unicode
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow) {
     const wchar_t CLASS_NAME[] = L"CommandPaletteWindow";
@@ -928,7 +914,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
     DwmSetWindowAttribute(g_hwnd, DWMWA_WINDOW_CORNER_PREFERENCE, &cornerPreference, sizeof(cornerPreference));
 #endif
 
-    RegisterCommands(g_commandManager);
+    g_commandManager.RegisterAllPlugins();
     UpdateFoundCommands(L"");
 
     if (!g_hotkeyManager.RegisterHotkeys(g_hwnd)) {

@@ -38,6 +38,7 @@ public:
     void RegisterNetworkToolsCommands();
     void RegisterClipboardManagerCommands();
     void RegisterDeveloperToolsCommands();
+    void RegisterProcessToolsCommands();
     void RegisterAllPlugins();
     
     // Verbesserte Suchfunktionen
