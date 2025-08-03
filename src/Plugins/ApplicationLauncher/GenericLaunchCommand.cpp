@@ -5,8 +5,8 @@
 #include <filesystem>
 #include <algorithm>
 
-GenericLaunchCommand::GenericLaunchCommand() 
-    : m_applicationFinder(std::make_unique<ApplicationFinder>()) {
+GenericLaunchCommand::GenericLaunchCommand()
+    : m_applicationFinder(ApplicationFinder::Instance()) {
 }
 
 std::wstring GenericLaunchCommand::GetName() const {
@@ -42,7 +42,7 @@ std::vector<ApplicationInfo> GenericLaunchCommand::GetMatchingApplications() con
         return {};
     }
     
-    auto results = m_applicationFinder->FindApplications(m_currentSearchTerm);
+    auto results = m_applicationFinder.FindApplications(m_currentSearchTerm);
     
     // Ensure all applications have icons loaded
     for (auto& app : results) {

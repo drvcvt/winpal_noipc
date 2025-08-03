@@ -2,7 +2,6 @@
 
 #include "../../Commands/ICommand.h"
 #include "ApplicationFinder.h"
-#include <memory>
 
 class GenericLaunchCommand : public ICommand {
 public:
@@ -19,7 +18,7 @@ public:
     void LaunchApplication(const ApplicationInfo& app);
     
 private:
-    std::unique_ptr<ApplicationFinder> m_applicationFinder;
+    ApplicationFinder& m_applicationFinder;
     std::wstring m_currentSearchTerm;
     
     // Hilfsmethoden

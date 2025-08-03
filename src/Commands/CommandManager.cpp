@@ -11,6 +11,7 @@
 #include "../Plugins/ApplicationLauncher/LaunchNotepadCommand.h"
 #include "../Plugins/ApplicationLauncher/LaunchTaskManagerCommand.h"
 #include "../Plugins/ApplicationLauncher/GenericLaunchCommand.h"
+#include "../Plugins/ApplicationLauncher/RefreshApplicationsCommand.h"
 #include "../Plugins/SystemInfo/ShowSystemInfoCommand.h"
 #include "../Plugins/SystemInfo/ShowDiskUsageCommand.h"
 #include "../Plugins/NetworkTools/ShowNetworkInfoCommand.h"
@@ -44,7 +45,8 @@ void CommandManager::RegisterApplicationLauncherCommands()
 {
     // Generischer Launch-Befehl (neue Funktionalität)
     RegisterCommand(std::make_unique<GenericLaunchCommand>());
-    
+    RegisterCommand(std::make_unique<RefreshApplicationsCommand>());
+
     // Bestehende spezifische Launch-Befehle (für Kompatibilität beibehalten)
     RegisterCommand(std::make_unique<LaunchCalculatorCommand>());
     RegisterCommand(std::make_unique<LaunchNotepadCommand>());
