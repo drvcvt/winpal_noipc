@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <ctime>
 #include <windows.h>
 
 struct ApplicationInfo {
@@ -63,16 +64,20 @@ struct ApplicationInfo {
 
 class ApplicationFinder {
 public:
-    ApplicationFinder();
-    
+    static ApplicationFinder& Instance();
+
     std::vector<ApplicationInfo> FindApplications(const std::wstring& searchTerm);
     void RefreshApplications();
     size_t GetApplicationCount() const { return m_applications.size(); }
-    
+
 private:
+    ApplicationFinder();
+
     std::vector<ApplicationInfo> m_applications;
     bool m_isInitialized;
-    
+    std::wstring m_cacheFilePath;
+    std::time_t m_cacheTimestamp;
+
     void InitializeApplications();
     void SearchInDirectory(const std::wstring& directory, bool recursive = false);
     void SearchInStartMenu();
@@ -102,4 +107,10 @@ private:
     bool ContainsIgnoreCase(const std::wstring& text, const std::wstring& searchTerm);
     std::wstring GetRegistryString(HKEY hKey, const std::wstring& valueName);
     bool IsValidExecutablePath(const std::wstring& path);
-}; 
+
+    // Cache helpers
+    std::wstring GetCacheFilePath() const;
+    bool LoadCache();
+    void SaveCache() const;
+    std::time_t GetLatestSystemChangeTime() const;
+};

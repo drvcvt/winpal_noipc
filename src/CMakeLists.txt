@@ -26,6 +26,7 @@ set(SOURCES
     Plugins/ApplicationLauncher/LaunchTaskManagerCommand.cpp
     Plugins/ApplicationLauncher/GenericLaunchCommand.cpp
     Plugins/ApplicationLauncher/ApplicationFinder.cpp
+    Plugins/ApplicationLauncher/RefreshApplicationsCommand.cpp
     Plugins/SystemInfo/ShowSystemInfoCommand.cpp
     Plugins/SystemInfo/ShowDiskUsageCommand.cpp
     Plugins/NetworkTools/ShowNetworkInfoCommand.cpp
@@ -55,6 +56,7 @@ set(HEADERS
     Plugins/ApplicationLauncher/LaunchTaskManagerCommand.h
     Plugins/ApplicationLauncher/GenericLaunchCommand.h
     Plugins/ApplicationLauncher/ApplicationFinder.h
+    Plugins/ApplicationLauncher/RefreshApplicationsCommand.h
     Plugins/SystemInfo/ShowSystemInfoCommand.h
     Plugins/SystemInfo/ShowDiskUsageCommand.h
     Plugins/NetworkTools/ShowNetworkInfoCommand.h

@@ -14,6 +14,9 @@
 #include <objbase.h>
 #include <objidl.h>
 #include <shlguid.h>
+#include <fstream>
+#include <codecvt>
+#include <chrono>
 
 #pragma comment(lib, "wbemuuid.lib")
 #pragma comment(lib, "version.lib")
@@ -21,7 +24,14 @@
 #pragma comment(lib, "shlwapi.lib")
 #pragma comment(lib, "ole32.lib")
 
-ApplicationFinder::ApplicationFinder() : m_isInitialized(false) {
+ApplicationFinder& ApplicationFinder::Instance() {
+    static ApplicationFinder instance;
+    return instance;
+}
+
+ApplicationFinder::ApplicationFinder()
+    : m_isInitialized(false), m_cacheTimestamp(0) {
+    m_cacheFilePath = GetCacheFilePath();
     InitializeApplications();
 }
 
@@ -95,14 +105,24 @@ std::vector<ApplicationInfo> ApplicationFinder::FindApplications(const std::wstr
 void ApplicationFinder::RefreshApplications() {
     m_applications.clear();
     m_isInitialized = false;
+    m_cacheTimestamp = 0;
+    std::error_code ec;
+    std::filesystem::remove(m_cacheFilePath, ec);
     InitializeApplications();
 }
 
 void ApplicationFinder::InitializeApplications() {
     if (m_isInitialized) return;
-    
+
     m_applications.clear();
-    
+
+    std::time_t currentTime = GetLatestSystemChangeTime();
+
+    if (LoadCache() && m_cacheTimestamp >= currentTime) {
+        m_isInitialized = true;
+        return;
+    }
+
     try {
         // Reihenfolge ist wichtig für Performance
         SearchInCommonApplications();
@@ -111,7 +131,7 @@ void ApplicationFinder::InitializeApplications() {
         SearchInRegistry();
         SearchWebBrowsers();
         SearchInProgramFiles();
-        
+
         // UWP Apps in separatem Thread für bessere Performance
         std::thread uwpThread([this]() {
             try {
@@ -121,13 +141,119 @@ void ApplicationFinder::InitializeApplications() {
             }
         });
         uwpThread.detach();
-        
+
+        m_cacheTimestamp = currentTime;
+        SaveCache();
         m_isInitialized = true;
     }
     catch (...) {
         // Bei Fehlern trotzdem als initialisiert markieren
         m_isInitialized = true;
     }
+}
+
+std::wstring ApplicationFinder::GetCacheFilePath() const {
+    wchar_t path[MAX_PATH];
+    if (SUCCEEDED(SHGetFolderPathW(NULL, CSIDL_LOCAL_APPDATA, NULL, 0, path))) {
+        std::filesystem::path cacheDir = std::filesystem::path(path) / L"WinPal";
+        std::error_code ec;
+        std::filesystem::create_directories(cacheDir, ec);
+        return (cacheDir / L"applications.cache").wstring();
+    }
+    return L"applications.cache";
+}
+
+bool ApplicationFinder::LoadCache() {
+    std::ifstream in(m_cacheFilePath, std::ios::binary);
+    if (!in.is_open()) {
+        return false;
+    }
+
+    std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+    std::string line;
+
+    if (!std::getline(in, line)) return false;
+    try {
+        m_cacheTimestamp = std::stoll(line);
+    } catch (...) {
+        return false;
+    }
+
+    if (!std::getline(in, line)) return false;
+    size_t count = 0;
+    try {
+        count = static_cast<size_t>(std::stoull(line));
+    } catch (...) {
+        return false;
+    }
+
+    m_applications.clear();
+    for (size_t i = 0; i < count; ++i) {
+        std::string s;
+        if (!std::getline(in, s)) return false; std::wstring name = converter.from_bytes(s);
+        if (!std::getline(in, s)) return false; std::wstring path = converter.from_bytes(s);
+        ApplicationInfo app(name, path);
+        if (!std::getline(in, s)) return false; app.description = converter.from_bytes(s);
+        if (!std::getline(in, s)) return false; app.publisher = converter.from_bytes(s);
+        if (!std::getline(in, s)) return false; app.version = converter.from_bytes(s);
+        if (!std::getline(in, s)) return false; app.iconPath = converter.from_bytes(s);
+        if (!std::getline(in, s)) return false; app.isUWP = (s == "1");
+        LoadIconForApplication(app);
+        m_applications.push_back(std::move(app));
+    }
+
+    return true;
+}
+
+void ApplicationFinder::SaveCache() const {
+    std::ofstream out(m_cacheFilePath, std::ios::binary | std::ios::trunc);
+    if (!out.is_open()) {
+        return;
+    }
+
+    std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+    out << static_cast<long long>(m_cacheTimestamp) << "\n";
+    out << m_applications.size() << "\n";
+    for (const auto& app : m_applications) {
+        out << converter.to_bytes(app.name) << "\n";
+        out << converter.to_bytes(app.path) << "\n";
+        out << converter.to_bytes(app.description) << "\n";
+        out << converter.to_bytes(app.publisher) << "\n";
+        out << converter.to_bytes(app.version) << "\n";
+        out << converter.to_bytes(app.iconPath) << "\n";
+        out << (app.isUWP ? 1 : 0) << "\n";
+    }
+}
+
+std::time_t ApplicationFinder::GetLatestSystemChangeTime() const {
+    auto getTime = [](const std::wstring& p) -> std::time_t {
+        try {
+            auto ft = std::filesystem::last_write_time(p);
+            return decltype(ft)::clock::to_time_t(ft);
+        } catch (...) {
+            return 0;
+        }
+    };
+
+    std::time_t latest = 0;
+    wchar_t dir[MAX_PATH];
+
+    if (SUCCEEDED(SHGetFolderPathW(NULL, CSIDL_STARTMENU, NULL, 0, dir))) {
+        latest = std::max(latest, getTime(std::wstring(dir)));
+        latest = std::max(latest, getTime(std::wstring(dir) + L"\\Programs"));
+    }
+    if (SUCCEEDED(SHGetFolderPathW(NULL, CSIDL_COMMON_STARTMENU, NULL, 0, dir))) {
+        latest = std::max(latest, getTime(std::wstring(dir)));
+        latest = std::max(latest, getTime(std::wstring(dir) + L"\\Programs"));
+    }
+    if (SUCCEEDED(SHGetFolderPathW(NULL, CSIDL_PROGRAM_FILES, NULL, 0, dir))) {
+        latest = std::max(latest, getTime(std::wstring(dir)));
+    }
+    if (SUCCEEDED(SHGetFolderPathW(NULL, CSIDL_PROGRAM_FILESX86, NULL, 0, dir))) {
+        latest = std::max(latest, getTime(std::wstring(dir)));
+    }
+
+    return latest;
 }
 
 void ApplicationFinder::SearchInDirectory(const std::wstring& directory, bool recursive) {
